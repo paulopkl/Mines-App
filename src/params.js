@@ -6,14 +6,14 @@ const params = {
     fontSize: 15,
     headerRatio: 0.15, // Proporção do painel superior na tela
     difficultLevel: 0.1,
+    // Pegar a Largura total da tela e dividir por 30
     getColumnsAmount() {
-        const width = Dimensions.get('window').width;
-        return Math.floor(width / this.blockSize);
+        return Math.floor(Dimensions.get('window').width / this.blockSize)
     },
     getRowsAmount() {
-        const totalHeight = Dimensions.get('window').height;
-        const boardHeight = totalHeight * (1 - this.headerRatio);
-        return Math.floor(boardHeight / this.blockSize); 
+        // altura total * (1 - 0.15) = 0.85
+        const boardHeight = Dimensions.get('window').height * (1 - this.headerRatio); // 0.85
+        return Math.floor(boardHeight / this.blockSize); // (altura total * 0.85 / 30)
     }
 }
 

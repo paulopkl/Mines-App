@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, TouchableWithoutFeedback } from 'react-native';
 import params from '../params';
 import Mine from './Mine';
 import Flag from './Flag';
@@ -25,13 +25,14 @@ export default props => {
     }
 
     return (
-        <View style={styleField}>
-            {!mined && opened && nearMines > 0
-             ? <Text style={[styles.label, { color: color }]}>
-                {nearMines}</Text> : false}
-            {mined && opened ? <Mine /> : false}
-            {flagged && !opened ? <Flag /> : false }
-        </View>
+        <TouchableWithoutFeedback onPress={props.onOpen} onLongPress={props.onSelect}>
+            <View style={styleField}>
+                {!mined && opened && nearMines > 0 ? <Text style={[styles.label, { color: color }]}>
+                    {nearMines}</Text> : false}
+                {mined && opened ? <Mine /> : false}
+                {flagged && !opened ? <Flag /> : false }
+            </View>
+        </TouchableWithoutFeedback>
     )
 }
 
@@ -41,6 +42,7 @@ const styles = StyleSheet.create({
         width: params.blockSize,
         borderWidth: params.borderSize
     },
+    
     regular: {
         backgroundColor: '#999',
         borderLeftColor: '#ccc',
@@ -48,20 +50,24 @@ const styles = StyleSheet.create({
         borderRightColor: '#333',
         borderBottomColor: '#333'
     },
+
     opened: {
         backgroundColor: '#999',
         borderColor: '#777',
         alignItems: 'center',
         justifyContent: 'center'
     },
+
     label: {
         fontWeight: 'bold',
         fontSize: params.fontSize
     },
+
     exploded: {
         backgroundColor: 'red',
         borderColor: 'red'
     },
+
     flagged: {
 
     }
